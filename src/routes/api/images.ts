@@ -31,8 +31,8 @@ images.get(`/`, (req: Request, res: Response): void => {
         .resize(width, height)
         .toFile(`./images/thumbnails/${fileName}-${width}x${height}.jpg`)
         .then(() => {
-          res.send(
-            `<img src="http://localhost:3000/api/images/thumbnails/${fileName}-${width}x${height}.jpg">`
+          res.sendFile(
+            `C:/Study/Backend/Full Stack JavaScript Developer/1. Backend Development with Node/!ImageProcessingAPI/images/thumbnails/${fileName}-${width}x${height}.jpg`
           );
         });
       const resizedImage: ResizedImages = {
@@ -41,18 +41,13 @@ images.get(`/`, (req: Request, res: Response): void => {
         height: Number(req.query.height),
       };
       imageArray.push(resizedImage);
-      console.log('run if!');
     } else {
-      res.send(
-        `<img src="http://localhost:3000/api/images/thumbnails/${fileName}-${width}x${height}.jpg">
-        <img src="http://localhost:3000/api/images/?fileName=fjord&width=200&height=200">`
+      res.sendFile(
+        `C:/Study/Backend/Full Stack JavaScript Developer/1. Backend Development with Node/!ImageProcessingAPI/images/thumbnails/${fileName}-${width}x${height}.jpg`
       );
-      console.log('run else!');
     }
-    console.log(imageArray);
     return;
   }
-
   res.send('Do not have image information');
 });
 

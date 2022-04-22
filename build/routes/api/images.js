@@ -1,35 +1,47 @@
 "use strict";
-// import express from 'express';
-// const images = express.Router();
-// const sharp = require('sharp');
-// // Static files
-// // Reverse of What I have to do
-// // app.get(`/filename=${fileName}&width=${width}&height=${height}`, (req, res) => {
-// //   res.send('image processing!');
-// //   sharp(`./images/full/${fileName}.jpg`)
-// //     .resize(width, height)
-// //     .toFile(`./images/thumbnails/${fileName}-thumb.jpg`);
-// // });
-// images.get('/', sizing, (req, res) => {
-//   res.send(
-//     `<h1 style="color:blue;text-align:center;">image processing! => Images Page: ${req.query.fileName} Image width: ${req.query.width} Image height: ${req.query.height}</h1>
-//     <img src="../../../images/full/fjord.jpg" alt="fjord" width="200" height="200">`
-//   );
-//   //
-// });
-// function sizing(
-//   req: express.Request,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   if (req.query.fileName && req.query.width && req.query.height) {
-//     console.log('Image size processing');
-//     sharp(`../../../images/full/fjord.jpg`)
-//       .resize(200, 200)
-//       .toFile(`../../../images/thumbnails/fjord-thumb.jpg`);
-//     next();
-//     return;
-//   }
-//   res.send('No information');
-// }
-// export default images;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = __importDefault(require("express"));
+var sharp = require('sharp');
+var images = express_1.default.Router();
+var imageArray = [];
+images.get("/", function (req, res) {
+    var fileName = req.query.fileName;
+    var width = Number(req.query.width);
+    var height = Number(req.query.height);
+    if (fileName && width && height) {
+        if (imageArray
+            .map(function (el) {
+            return el.fileName === fileName &&
+                el.width === width &&
+                el.height === height;
+        })
+            .indexOf(true) === -1) {
+            // Resize image and display
+            sharp("./images/full/".concat(fileName, ".jpg"))
+                .resize(width, height)
+                .toFile("./images/thumbnails/".concat(fileName, "-").concat(width, "x").concat(height, ".jpg"))
+                .then(function () {
+                res.sendFile('http://localhost:3000/api/images/?fileName=fjord&width=200&height=200');
+                res.send("<img src=\"http://localhost:3000/api/images/thumbnails/".concat(fileName, "-").concat(width, "x").concat(height, ".jpg\">"));
+            });
+            var resizedImage = {
+                fileName: req.query.fileName,
+                width: Number(req.query.width),
+                height: Number(req.query.height),
+            };
+            imageArray.push(resizedImage);
+            console.log('run if!');
+        }
+        else {
+            res.send("<img src=\"http://localhost:3000/api/images/thumbnails/".concat(fileName, "-").concat(width, "x").concat(height, ".jpg\">\n        <img src=\"http://localhost:3000/api/images/?fileName=fjord&width=200&height=200\">"));
+            console.log('run else!');
+        }
+        console.log(imageArray);
+        return;
+    }
+    res.send('Do not have image information');
+});
+exports.default = images;

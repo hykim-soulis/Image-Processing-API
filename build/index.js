@@ -4,23 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var sharp = require('sharp');
-var path = require('path');
+var index_1 = __importDefault(require("./routes/index"));
 var app = (0, express_1.default)();
 var port = 3000;
+app.use('/api/images', express_1.default.static('images'));
 app.get('/', function (req, res) {
     res.send("Main");
 });
-app.get('/api', function (req, res) {
-    res.send('API here');
-});
-// Reverse of What I have to do - working!
-app.get("/api/images?filename=palmtunnel&width=200&height=200", function (req, res) {
-    res.send('image processing!');
-    sharp("./images/full/palmtunnel.jpg")
-        .resize(200, 200)
-        .toFile("./images/thumbnails/palmtunnel-thumb.jpg");
-});
+app.use('/api', index_1.default);
 app.listen(port, function () {
     console.log("server started at http://localhost:".concat(port));
 });
