@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import route from './routes/index';
 
 const app: Express = express();
-const port: number = 3000;
+const port = 3000;
 app.use('/api/images', express.static('images'));
 
 app.get('/', (req: Request, res: Response) => {

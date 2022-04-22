@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-const sharp = require('sharp');
+import sharp from 'sharp';
 
 const imageArray: ResizedImages[] = [];
 interface ResizedImages {
@@ -30,8 +30,8 @@ function createCache(fileName: string, width: number, height: number): void {
 
 function showImage(req: Request, res: Response, next: NextFunction) {
   const fileName: string | undefined = req.query.fileName as string | undefined;
-  const width: number = Number(req.query.width);
-  const height: number = Number(req.query.height);
+  const width = Number(req.query.width);
+  const height = Number(req.query.height);
   if (fileName && width && height) {
     if (firstRequest(fileName, width, height)) {
       sharp(`./images/full/${fileName}.jpg`)
