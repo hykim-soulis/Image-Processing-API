@@ -1,5 +1,4 @@
 import express, { Express, Request, Response } from 'express';
-import { Http2ServerRequest } from 'http2';
 import route from './routes/index';
 
 const app: Express = express();
