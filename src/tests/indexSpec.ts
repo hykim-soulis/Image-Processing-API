@@ -1,7 +1,26 @@
-// import multiply from '../index';
+import supertest from 'supertest';
+import { firstRequest, createCache, showImage } from '../utilities/middleware';
+import { app } from '../index';
 
-// describe('function multiply multiplies two numbers', () => {
-//   it('should multiply 3 by 5 and be 15', () => {
-//     expect(multiply(3, 5)).toBe(15);
-//   });
-// });
+const request = supertest(app);
+
+describe('server checks', () => {
+  it('server is created without error', async () => {
+    const response = await request.get('/');
+    expect(response.status).toBe(200);
+  });
+  it('route is created without error', async () => {
+    const response = await request.get('/api');
+    expect(response.status).toBe(200);
+  });
+  it('image API moved permanently', async () => {
+    const response = await request.get('/api/images');
+    expect(response.status).toBe(301);
+  });
+  it('image API moved permanently', async () => {
+    const response = await request.get(
+      '/api/images?fileName=fjord&width=200&height=200'
+    );
+    expect(response.status).toBe(301);
+  });
+});

@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import showImage from '../../utilities/middleware';
+import { showImage } from '../../utilities/middleware';
 
 const images = express.Router();
 
