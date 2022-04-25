@@ -92,3 +92,20 @@ describe('server checks', function () {
         });
     }); });
 });
+var middleware_1 = require("../utilities/middleware");
+describe('middleware checks', function () {
+    var fileName = 'fjord';
+    var width = 200;
+    var height = 200;
+    describe('firstRequest function check', function () {
+        var imageArray = [];
+        it('firstRequest expected to return true', function () {
+            expect((0, middleware_1.firstRequest)(fileName, width, height)).toBeTruthy();
+        });
+        it('firstRequest expected to return false', function () {
+            (0, middleware_1.createCache)(fileName, width, height);
+            console.log(imageArray);
+            expect((0, middleware_1.firstRequest)(fileName, width, height)).toBeFalsy();
+        });
+    });
+});
