@@ -35,6 +35,8 @@ function showImage(req, res, next) {
         next();
         return;
     }
-    res.send('Do not have image information');
+    var errMessage = 'Do not have image information';
+    res.send(errMessage);
+    return errMessage;
 }
 exports.showImage = showImage;

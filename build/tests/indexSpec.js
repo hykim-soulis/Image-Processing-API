@@ -96,16 +96,23 @@ var middleware_1 = require("../utilities/middleware");
 describe('middleware checks', function () {
     var fileName = 'fjord';
     var width = 200;
-    var height = 200;
     describe('firstRequest function check', function () {
+        var height = 200;
         var imageArray = [];
         it('firstRequest expected to return true', function () {
             expect((0, middleware_1.firstRequest)(fileName, width, height)).toBeTruthy();
         });
         it('firstRequest expected to return false', function () {
             (0, middleware_1.createCache)(fileName, width, height);
-            console.log(imageArray);
             expect((0, middleware_1.firstRequest)(fileName, width, height)).toBeFalsy();
+        });
+    });
+    describe('resizing function check', function () {
+        var height = null;
+        it('showImage should throw error', function () {
+            expect(index_1.app.get("/api/images", middleware_1.showImage, function (req, res) {
+                res.sendFile("C:/Study/Backend/Full Stack JavaScript Developer/1. Backend Development with Node/!ImageProcessingAPI/images/thumbnails/".concat(req.query.fileName, "-").concat(req.query.width, "x").concat(req.query.height, ".jpg"));
+            })).toThrowError();
         });
     });
 });
