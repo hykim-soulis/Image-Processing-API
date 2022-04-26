@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import sharp from 'sharp';
+import fs from 'fs';
+import path from 'path';
 
 const imageArray: ResizedImages[] = [];
 interface ResizedImages {
@@ -7,6 +9,12 @@ interface ResizedImages {
   width: number;
   height: number;
 }
+
+fs.mkdir(path.join(__dirname, '../../images/thumbnails'), (err) => {
+  if (err) {
+    return console.error(err);
+  }
+});
 
 function firstRequest(
   fileName: string,
