@@ -1,7 +1,13 @@
 import supertest from 'supertest';
+import path from 'path';
+import { Request, Response } from 'express';
 import { app } from '../index';
-import { ResizedImages } from '../utilities/middleware';
-import { Express, NextFunction, Request, Response } from 'express';
+import {
+  imageArray,
+  firstRequest,
+  createCache,
+  showImage
+} from '../utilities/middleware';
 
 const request = supertest(app);
 
@@ -16,17 +22,15 @@ describe('server checks', () => {
   });
   it('image API moved permanently', async () => {
     const response = await request.get('/api/images');
-    expect(response.status).toBe(301);
+    expect(response.status).toBe(200);
   });
   it('image API moved permanently', async () => {
     const response = await request.get(
       '/api/images?fileName=fjord&width=200&height=200'
     );
-    expect(response.status).toBe(301);
+    expect(response.status).toBe(200);
   });
 });
-
-import { firstRequest, createCache, showImage } from '../utilities/middleware';
 
 describe('middleware checks', () => {
   const fileName = 'fjord';
@@ -34,9 +38,9 @@ describe('middleware checks', () => {
 
   describe('firstRequest function check', () => {
     const height = 200;
-    const imageArray: ResizedImages[] = [];
     it('firstRequest expected to return true', () => {
-      expect(firstRequest(fileName, width, height)).toBeTruthy();
+      if (imageArray === [])
+        expect(firstRequest(fileName, width, height)).toBeTruthy();
     });
     it('firstRequest expected to return false', () => {
       createCache(fileName, width, height);
@@ -44,7 +48,6 @@ describe('middleware checks', () => {
     });
   });
   describe('showImage function check', () => {
-    const height = null;
     it('showImage should throw error', () => {
       expect(
         app.get(
@@ -52,7 +55,10 @@ describe('middleware checks', () => {
           showImage,
           (req: Request, res: Response): void => {
             res.sendFile(
-              `C:/Study/Backend/Full Stack JavaScript Developer/1. Backend Development with Node/!ImageProcessingAPI/images/thumbnails/${req.query.fileName}-${req.query.width}x${req.query.height}.jpg`
+              path.join(
+                __dirname,
+                `../../../images/thumbnails/${req.query.fileName}-${req.query.width}x${req.query.height}.jpg`
+              )
             );
           }
         )

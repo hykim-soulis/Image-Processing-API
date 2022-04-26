@@ -47,4 +47,4 @@ function showImage(req: Request, res: Response, next: NextFunction) {
   res.send('Do not have image information');
 }
 
-export { ResizedImages, firstRequest, createCache, showImage };
+export { ResizedImages, imageArray, firstRequest, createCache, showImage };

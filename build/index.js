@@ -9,7 +9,7 @@ var index_1 = __importDefault(require("./routes/index"));
 var app = (0, express_1.default)();
 exports.app = app;
 var port = 3000;
-app.use('/api/images', express_1.default.static('images'));
+app.use('/api/images', express_1.default.static("".concat(__dirname, "/images")));
 app.get('/', function (req, res) {
     res.send("Main");
 });

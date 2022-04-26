@@ -3,9 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.showImage = exports.createCache = exports.firstRequest = void 0;
+exports.showImage = exports.createCache = exports.firstRequest = exports.imageArray = void 0;
 var sharp_1 = __importDefault(require("sharp"));
 var imageArray = [];
+exports.imageArray = imageArray;
 function firstRequest(fileName, width, height) {
     return (imageArray
         .map(function (el) {
@@ -35,8 +36,6 @@ function showImage(req, res, next) {
         next();
         return;
     }
-    var errMessage = 'Do not have image information';
-    res.send(errMessage);
-    return errMessage;
+    res.send('Do not have image information');
 }
 exports.showImage = showImage;

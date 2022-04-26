@@ -40,7 +40,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
+var path_1 = __importDefault(require("path"));
 var index_1 = require("../index");
+var middleware_1 = require("../utilities/middleware");
 var request = (0, supertest_1.default)(index_1.app);
 describe('server checks', function () {
     it('server is created without error', function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -74,7 +76,7 @@ describe('server checks', function () {
                 case 0: return [4 /*yield*/, request.get('/api/images')];
                 case 1:
                     response = _a.sent();
-                    expect(response.status).toBe(301);
+                    expect(response.status).toBe(200);
                     return [2 /*return*/];
             }
         });
@@ -86,32 +88,30 @@ describe('server checks', function () {
                 case 0: return [4 /*yield*/, request.get('/api/images?fileName=fjord&width=200&height=200')];
                 case 1:
                     response = _a.sent();
-                    expect(response.status).toBe(301);
+                    expect(response.status).toBe(200);
                     return [2 /*return*/];
             }
         });
     }); });
 });
-var middleware_1 = require("../utilities/middleware");
 describe('middleware checks', function () {
     var fileName = 'fjord';
     var width = 200;
     describe('firstRequest function check', function () {
         var height = 200;
-        var imageArray = [];
         it('firstRequest expected to return true', function () {
-            expect((0, middleware_1.firstRequest)(fileName, width, height)).toBeTruthy();
+            if (middleware_1.imageArray === [])
+                expect((0, middleware_1.firstRequest)(fileName, width, height)).toBeTruthy();
         });
         it('firstRequest expected to return false', function () {
             (0, middleware_1.createCache)(fileName, width, height);
             expect((0, middleware_1.firstRequest)(fileName, width, height)).toBeFalsy();
         });
     });
-    describe('resizing function check', function () {
-        var height = null;
+    describe('showImage function check', function () {
         it('showImage should throw error', function () {
             expect(index_1.app.get("/api/images", middleware_1.showImage, function (req, res) {
-                res.sendFile("C:/Study/Backend/Full Stack JavaScript Developer/1. Backend Development with Node/!ImageProcessingAPI/images/thumbnails/".concat(req.query.fileName, "-").concat(req.query.width, "x").concat(req.query.height, ".jpg"));
+                res.sendFile(path_1.default.join(__dirname, "../../../images/thumbnails/".concat(req.query.fileName, "-").concat(req.query.width, "x").concat(req.query.height, ".jpg")));
             })).toThrowError();
         });
     });

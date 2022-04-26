@@ -3,7 +3,7 @@ import route from './routes/index';
 
 const app: Express = express();
 const port = 3000;
-app.use('/api/images', express.static('images'));
+app.use('/api/images', express.static(`${__dirname}/images`));
 
 app.get('/', (req: Request, res: Response) => {
   res.send(`Main`);
