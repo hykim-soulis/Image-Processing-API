@@ -10,9 +10,13 @@ interface ResizedImages {
   height: number;
 }
 
-fs.mkdir(path.join(__dirname, '../../images/thumbnails'), (err) => {
+fs.access(path.join(__dirname, '../../images/thumbnails'), (err) => {
   if (err) {
-    return console.error(err);
+    fs.mkdir(path.join(__dirname, '../../images/thumbnails'), (err) => {
+      if (err) {
+        return console.error(err);
+      }
+    });
   }
 });
 

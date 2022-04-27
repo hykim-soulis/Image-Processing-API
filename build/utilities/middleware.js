@@ -5,8 +5,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.showImage = exports.createCache = exports.firstRequest = exports.imageArray = void 0;
 var sharp_1 = __importDefault(require("sharp"));
+var fs_1 = __importDefault(require("fs"));
+var path_1 = __importDefault(require("path"));
 var imageArray = [];
 exports.imageArray = imageArray;
+fs_1.default.access(path_1.default.join(__dirname, '../../images/thumbnails'), function (err) {
+    if (err) {
+        fs_1.default.mkdir(path_1.default.join(__dirname, '../../images/thumbnails'), function (err) {
+            if (err) {
+                return console.error(err);
+            }
+        });
+    }
+});
+// if (!fs.access(path.join(__dirname, '../../images/thumbnails'))) {
+//   fs.mkdir(path.join(__dirname, '../../images/thumbnails'), (err) => {
+//     if (err) {
+//       return console.error(err);
+//     }
+//   });
+// }
 function firstRequest(fileName, width, height) {
     return (imageArray
         .map(function (el) {
