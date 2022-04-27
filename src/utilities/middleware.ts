@@ -49,7 +49,8 @@ function showImage(req: Request, res: Response, next: NextFunction) {
       sharp(`./images/full/${fileName}.jpg`)
         .resize(width, height)
         .toFile(`./images/thumbnails/${fileName}-${width}x${height}.jpg`)
-        .then(() => next());
+        .then(() => next())
+        .catch((err) => console.error(`🚩🚩🚩🚩${err}`));
       createCache(fileName, width, height);
       return;
     }
