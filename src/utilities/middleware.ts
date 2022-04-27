@@ -50,7 +50,11 @@ function showImage(req: Request, res: Response, next: NextFunction) {
         .resize(width, height)
         .toFile(`./images/thumbnails/${fileName}-${width}x${height}.jpg`)
         .then(() => next())
-        .catch((err) => console.error(`🚩🚩🚩🚩${err}`));
+        .catch((err) => {
+          console.error(`🚩🚩🚩🚩${err}`);
+          res.send('Wrong file name...');
+          return;
+        });
       createCache(fileName, width, height);
       return;
     }
@@ -58,6 +62,7 @@ function showImage(req: Request, res: Response, next: NextFunction) {
     return;
   }
   res.send('Do not have image information');
+  return;
 }
 
 export { ResizedImages, imageArray, firstRequest, createCache, showImage };

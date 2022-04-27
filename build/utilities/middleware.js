@@ -18,13 +18,6 @@ fs_1.default.access(path_1.default.join(__dirname, '../../images/thumbnails'), f
         });
     }
 });
-// if (!fs.access(path.join(__dirname, '../../images/thumbnails'))) {
-//   fs.mkdir(path.join(__dirname, '../../images/thumbnails'), (err) => {
-//     if (err) {
-//       return console.error(err);
-//     }
-//   });
-// }
 function firstRequest(fileName, width, height) {
     return (imageArray
         .map(function (el) {
@@ -47,7 +40,12 @@ function showImage(req, res, next) {
             (0, sharp_1.default)("./images/full/".concat(fileName, ".jpg"))
                 .resize(width, height)
                 .toFile("./images/thumbnails/".concat(fileName, "-").concat(width, "x").concat(height, ".jpg"))
-                .then(function () { return next(); });
+                .then(function () { return next(); })
+                .catch(function (err) {
+                console.error("\uD83D\uDEA9\uD83D\uDEA9\uD83D\uDEA9\uD83D\uDEA9".concat(err));
+                res.send('Wrong file name...');
+                return;
+            });
             createCache(fileName, width, height);
             return;
         }
@@ -55,5 +53,6 @@ function showImage(req, res, next) {
         return;
     }
     res.send('Do not have image information');
+    return;
 }
 exports.showImage = showImage;
