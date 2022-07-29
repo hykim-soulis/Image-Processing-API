@@ -45,7 +45,7 @@ This Image Processing API project is for Udacity's Full Stack JavaScript Develop
 6. Save image you want to resize at ./images/full directory
 
 7. Access below endpoint with your image filename and desired width and height.<br>
-   localhost:[PORT]/api/images/fileName=[FILE NAME]&width=[WIDTH PIXEL]&height=[HEIGHT PIXEL]
+   http://localhost:**PORT**/api/images/fileName=**FILE NAME**&width=**WIDTH PIXEL**&height=**HEIGHT PIXEL**
 
 - Example full url: santamonica, 200X200 <br>
   [http://localhost:3000/api/images/fileName=santamonica&width=200&height=200](http://localhost:3000/api/images/fileName=santamonica&width=200&height=200)
