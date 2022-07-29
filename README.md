@@ -6,7 +6,7 @@ This api process resize the image upon user's desired using TypeScript and Expre
 
 Accessing the provided URL at **How to Install and Run the Project - 6** resizes an image and save it to ./images/thumbnails on first access. The api has caching so that repeated requests to the endpoint use pre-stored images rather than regenerating a new image each time.
 
-Tests for endpoint and image processing using Jasmine.
+Tests for endpoints and image processing using Jasmine.
 
 This Image Processing API project is for Udacity's Full Stack JavaScript Developer nanodegree program.
 
@@ -24,7 +24,7 @@ This Image Processing API project is for Udacity's Full Stack JavaScript Develop
   cd project-directory
 ```
 
-3. Install natours with npm
+3. Install image processing api with npm
 
 ```bash
   npm install
@@ -36,14 +36,18 @@ This Image Processing API project is for Udacity's Full Stack JavaScript Develop
   npm run start
 ```
 
-5. Save image you want to resize at ./images/full directory
+5. Build project
 
-6. Access below endpoint with your filename, width and height.
+```bash
+  npm run build
+```
 
-http://localhost:[PORT]/api/images/fileName=[FILE_NAME]&width=[WIDTH_PIXEL]&height=[HEIGHT_PIXEL]
+6. Save image you want to resize at ./images/full directory
 
-- Example full url: santamonica, 200X200
+7. Access below endpoint with your image filename and desired width and height.<br>
+   localhost:[PORT]/api/images/fileName=[FILE NAME]&width=[WIDTH PIXEL]&height=[HEIGHT PIXEL]
 
+- Example full url: santamonica, 200X200 <br>
   [http://localhost:3000/api/images/fileName=santamonica&width=200&height=200](http://localhost:3000/api/images/fileName=santamonica&width=200&height=200)
 
 - You can use your own images or use the ones provided in this repo
@@ -53,7 +57,7 @@ http://localhost:[PORT]/api/images/fileName=[FILE_NAME]&width=[WIDTH_PIXEL]&heig
   - palmtunnel
   - santamonica
 
-### What I've learned
+## What I've learned
 
 - Express
 - Middleware
