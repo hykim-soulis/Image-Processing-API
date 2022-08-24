@@ -1,10 +1,10 @@
 # Image Processing API
 
-This api process resize the image upon user's desired using TypeScript and Express.
+This api process resizes the image to the user's desired size using TypeScript and Express.
 
 ## Project Description
 
-Accessing the provided URL at **How to Install and Run the Project - 6** resizes an image and save it to ./images/thumbnails on first access. The api has caching so that repeated requests to the endpoint use pre-stored images rather than regenerating a new image each time.
+Accessing the URL at **How to Install and Run the Project #7** resizes an image provided and save it to ./images/thumbnails on first access. The api has caching so that repeated requests to the endpoint use pre-stored images rather than regenerating a new image each time.
 
 Tests for endpoints and image processing using Jasmine.
 
